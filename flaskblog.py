@@ -10,9 +10,11 @@
 
 ## Templating engine that flask uses is called Jinja 2
 
-from flask import Flask, render_template
-
+from flask import Flask, render_template, url_for
+from forms import RegistrationForms, LoginForms
 app = Flask(__name__)
+
+app.config['SECRET_KEY'] = '0e61963efa837ff49ec31782cfec8858'
 
 posts = [
 
