@@ -1,15 +1,5 @@
-<!DOCTYPE html>
-<html>    
-<HEAD>
-    {% if title %}
-    <title>Flask Blog - {{title}}</title>
+{% extends 'layout.html' %}
 
-    {% else %}
-    <title>Flask Blog</title>
-    {% endif %}
-</HEAD>
-<body>
-    <h1>About Page template</h1>
-</body>
-
-</html>
+{% block content %}
+    <h1>About Page template content</h1>
+{% endblock content %}
