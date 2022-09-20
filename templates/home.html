@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>    
 <HEAD>
-    <title>Home Page </title>
+    {% if title %}
+    <title>Flask Blog - {{title}}</title>
+
+    {% else %}
+    <title>Flask Blog</title>
+    {% endif %}
 </HEAD>
-<h1>Home Page template</h1>
+<body>
+    {% for pst in post %}
+        <h1>{{ pst.title}}</h1>
+        <p>By - {{pst.author}}, on - {{pst.date_posted}}</p>
+        <p> {{ pst.content }}</p>
+    {% endfor %}
+</body>
+
 </html>
