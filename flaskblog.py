@@ -10,7 +10,7 @@
 
 ## Templating engine that flask uses is called Jinja 2
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForms, LoginForms
 app = Flask(__name__)
 
@@ -40,6 +40,19 @@ def home_page():
 @app.route("/about")
 def about_page():
     return render_template('about.html', title ='About Page')
+
+@app.route("/register", methods=['GET', 'POST'])
+def register_page():
+    form = RegistrationForms()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home_page'))
+    return render_template('register.html', title = 'Register Page', form=form)
+
+@app.route("/login")
+def login_page():
+    form = LoginForms()
+    return render_template('login.html', title = "Login Form", form=form)
 
 
 if __name__ == "__main__":
