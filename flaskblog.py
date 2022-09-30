@@ -10,6 +10,8 @@
 
 ## Templating engine that flask uses is called Jinja 2
 
+## ORM - Object Relational Mapper
+
 from flask import Flask, render_template, url_for, flash, redirect
 from forms import RegistrationForms, LoginForms
 app = Flask(__name__)
