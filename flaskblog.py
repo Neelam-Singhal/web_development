@@ -10,13 +10,55 @@
 
 ## Templating engine that flask uses is called Jinja 2
 
-## ORM - Object Relational Mapper
+'''
+## ORM - Object Relational Mapper 
 
+We will use SQLite for development and to deploy it, we will switchover to Postgres DB for production 
+
+pip install flask-sqlalchemy
+
+
+
+
+'''
+
+from datetime import datetime
 from flask import Flask, render_template, url_for, flash, redirect
+from flask_sqlalchemy import SQLAlchemy
 from forms import RegistrationForms, LoginForms
-app = Flask(__name__)
 
+app = Flask(__name__)
 app.config['SECRET_KEY'] = '0e61963efa837ff49ec31782cfec8858'
+# SQLAlchemy needs to be set as a configuration.
+# In SQL Lite, we can specify relative path with /// and URI. So, ///site.db means a relative path from current directory. So a site.db file should get created in the current folder
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' 
+# Create a DB instance. In SQL Alchemy, we can represent our database structures as classes. These classes are called Models
+db = SQLAlchemy(app)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+    password = db.Column(db.String(60), nullable=False)
+    # Our post attribute has a relation to Post Model.
+    # Backref - simiar to adding another column to the post model. 
+    # Author attribute allows us to get the user who created the post.
+    # Note that posts is not a column in User table. This is just running an additional query in background that get all the posts this user has created
+    posts = db.relationship('Post', backref = 'author', lazy=True)
+
+    def __repr__(self):
+        return f"User('{self.username}', {self.email}',{self.image_file}')"
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    content = db.Column(db.Text, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.title}', {self.date_posted}')"
 
 posts = [
 
