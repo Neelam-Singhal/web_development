@@ -17,7 +17,7 @@ We will use SQLite for development and to deploy it, we will switchover to Postg
 
 pip install flask-sqlalchemy
 
-
+Python Commands: in SQLite_commands.py
 
 
 '''
@@ -35,6 +35,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 # Create a DB instance. In SQL Alchemy, we can represent our database structures as classes. These classes are called Models
 db = SQLAlchemy(app)
 
+
+# Table name for this Model will be automatically set as "user" (lowercase U). We can set these names by ourselves if neededc
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
