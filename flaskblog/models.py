@@ -1,5 +1,5 @@
 from datetime import datetime
-from flaskblog import db
+from __main__ import db
 
 
 # Table name for this Model will be automatically set as "user" (lowercase U). We can set these names by ourselves if neededc
