@@ -18,6 +18,7 @@
 
 # To tell python that your directory is a package, you need to create __init__ file.
 
+from flaskblog import app
 
 if __name__ == "__main__":
     app.run(debug=True)

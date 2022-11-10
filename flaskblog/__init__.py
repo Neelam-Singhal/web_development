@@ -1,6 +1,5 @@
-from flask import Flask, render_template, url_for, flash, redirect
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from forms import RegistrationForms, LoginForms
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '0e61963efa837ff49ec31782cfec8858'
@@ -9,3 +8,5 @@ app.config['SECRET_KEY'] = '0e61963efa837ff49ec31782cfec8858'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db' 
 # Create a DB instance. In SQL Alchemy, we can represent our database structures as classes. These classes are called Models
 db = SQLAlchemy(app)
+
+from flaskblog import routes
